@@ -1,7 +1,7 @@
 from openai import OpenAI
 
 def chatWithDeepseek():
-    r = open("./apikey.txt", "r")
+    r = open("apikey.json", "r")
     rd = r.read()
     r.close()
     print(rd)
