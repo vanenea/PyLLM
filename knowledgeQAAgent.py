@@ -50,7 +50,7 @@ def search_tool(query):
     return results
 
 def knowledge_qa(query):
-    # Search for page
+    # 查询维基百科
     search_url = 'https://en.wikipedia.org/w/api.php'
     search_params = {
         'action': 'query',
@@ -67,8 +67,6 @@ def knowledge_qa(query):
         return f'No results found for "{query}".'
 
     title = results[0]['title']
-
-    # Fetch summary
     summary_url = f'https://en.wikipedia.org/api/rest_v1/page/summary/{title}'
     summary_resp = requests.get(summary_url)
     summary_resp.raise_for_status()
@@ -165,7 +163,7 @@ def agentQA():
         messages.append({'role': 'user', 'content': user_input})
         response = call_llm(messages, functions=[qa_fn])
         message = response['choices'][0]['message']
-        print("大模型返回数据: ", message)
+        # print("大模型返回数据: ", message)
         if message.get('function_call'):
             fn_name = message['function_call']['name']
             fn_args = json.loads(message['function_call']['arguments'])
