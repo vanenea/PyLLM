@@ -8,6 +8,8 @@ with open('apikey.json', 'r') as load_f:
 
 DEEPSEEK_URL = jsonData['deepseekUrl']
 DEEPSEEK_API_KEY = jsonData['deepseekKey']
+DEEPSEEK_URL = jsonData['aliUrl']
+DEEPSEEK_API_KEY = jsonData['aliKey']
 SERPAPI_URL = jsonData['serpUrl']
 SERPAPI_API_KEY = jsonData['serpApiKey']
 # 调用大模型
