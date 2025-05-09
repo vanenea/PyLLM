@@ -51,13 +51,14 @@ class DashScopeEmbeddings:
 
 
 def initialize_vector_store():
-    # 方案1：继续使用OpenAI Embedding（推荐）
+    # 方案1：继续使用OpenAI Embedding
     #embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
 
     # 方案2：使用本地Embedding模型（需下载）
     #from langchain_community.embeddings import HuggingFaceEmbeddings
     #embeddings = HuggingFaceEmbeddings(model_name="BAAI/bge-small-zh-v1.5")
 
+    # 方案3：使用阿里云百炼Embedding模型
     embeddings = DashScopeEmbeddings(
         model_name="text-embedding-v3",
         api_key=os.getenv("DASHSCOPE_API_KEY"),
@@ -65,9 +66,7 @@ def initialize_vector_store():
     )
 
     #loader = DirectoryLoader("docs/", glob="**/*.txt")
-    # 根据后缀选择不同的 Loader
-    # 同时加载 txt 和 docx
-    # 2. 读取所有 docx
+
     # 1. 读取所有 txt
     txt_loader = DirectoryLoader("docs/", glob="**/*.txt", loader_cls= TextLoader)
     txt_docs = txt_loader.load()
@@ -130,7 +129,7 @@ def main():
     vector_store = initialize_vector_store()
     qa_chain = create_qa_chain(vector_store)
 
-    print("DeepSeek问答系统已启动！输入'退出'结束对话")
+    print("知识问答系统已启动！输入'退出'结束对话")
     while True:
         question = input("\n问题：")
         if question.lower() in ["退出", "exit"]:
